@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Grocery List</title>
+    <link rel="stylesheet" type="text/css" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
+    <style>
+        body {
+  font-family: "Trebuchet MS", sans-serif;
+  background-color: lightgrey;
+  margin: 0;
+  padding: 0;
+}
+
+h1 {
+  text-align: center;
+  margin-top: 20px;
+  color: Midnightblue;
+}
+
+.grocery-list {
+  max-width: 600px;
+  margin: 40px auto;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 4px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+input[type="text"] {
+  width: 70%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+button {
+  padding: 10px;
+  font-size: 16px;
+  background-color: #4caf50;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+li {
+  margin: 10px 0;
+  position: relative;
+  padding-top: 10px;
+}
+
+button.edit,
+button.remove {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 5px;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.fa-edit {
+  color: #1ed633;
+}
+.fa-trash-alt {
+  color: #ca1b1b;
+}
+button.edit:hover .fa-edit,
+button.remove:hover .fa-trash-alt {
+  color: #333;
+}
+button.edit,
+button.remove {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 20px;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+button.remove {
+  margin-right: 40px;
+  color: red;
+}
+.clear-button {
+  display: block;
+  margin-top: 10px;
+  padding: 10px 20px;
+  justify-content: center;
+  background-color: white;
+  color: red;
+  border: red 1px solid;
+  border-radius: 4px;
+  letter-spacing: 3px;
+}
+
+.clear-button:hover {
+  background-color: red;
+  color: white;
+}
+.clear {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.addbutton {
+  position: absolute;
+  margin-left: 20px;
+  min-width: 100px;
+}
+
+    </style>
+  </head>
+  <body>
+    <h1>Grocery Bud</h1>
+    <div class="grocery-list">
+      <input type="text" id="item" placeholder="Enter item" />
+      <button onclick="addItem()" class="addbutton">Submit</button>
+      <ul id="list"></ul>
+      <div class="clear">
+        <button onclick="clearItems()" class="clear-button">Clear All</button>
+      </div>
+    </div>
+    <script>
+        function addItem() {
+  var input = document.getElementById("item");
+  var item = input.value;
+  if (item === "") {
+    return;
+  }
+
+  var list = document.getElementById("list");
+  var listItem = document.createElement("li");
+
+  var itemText = document.createElement("span");
+  itemText.innerHTML = item;
+  listItem.appendChild(itemText);
+  var editButton = document.createElement("button");
+  editButton.innerHTML = "<i class='fas fa-edit'></i>";
+  editButton.classList.add("edit");
+  editButton.addEventListener("click", function () {
+    var newText = prompt("Enter new item text:", itemText.innerHTML);
+    if (newText !== null) {
+      itemText.innerHTML = newText;
+    }
+  });
+  listItem.appendChild(editButton);
+  var removeButton = document.createElement("button");
+  removeButton.innerHTML = "<i class='fas fa-trash-alt'></i>";
+  removeButton.classList.add("remove");
+  removeButton.addEventListener("click", function () {
+    listItem.remove();
+  });
+  listItem.appendChild(removeButton);
+
+  list.insertBefore(listItem, list.firstChild);
+
+  input.value = "";
+}
+
+function clearItems() {
+  var list = document.getElementById("list");
+  list.innerHTML = "";
+}
+
+    </script>
+  </body>
+</html>
